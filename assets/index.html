@@ -1,0 +1,73 @@
+<html>
+	<head>
+		<title>
+			tetris.js - simple javascript tetris
+		</title>
+		<link rel="stylesheet" href="style.css" type="text/css">
+		<script src="jquery/jquery.js"></script>
+		<script src="game.js"></script>
+	</head>
+	<body>
+		<div id="mainwrapper">
+			<h1 id="headline">tetris.js</h1>
+			<h2>simple javascript tetris</h2>
+			<div id="gamewrapper">
+				<canvas id="gamecanvas" width="320" height="480">
+				</canvas>
+			</div>
+			<div id="info">
+				<h1>Next</h1>
+				<div id ="nextwrapper">
+					<canvas id="nextcanvas" width="120" height="120">
+					</canvas>
+				</div>
+				<h1>Score</h1>
+				<div id="points">0</div>
+				<h1>Keys</h1>
+					<table>
+						<tr>
+							<td>
+								Left:
+							</td>
+							<td>
+								Move Left
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Right:
+							</td>
+							<td>
+								Move Right
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Down:
+							</td>
+							<td>
+								Move Down
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Up:
+							</td>
+							<td>
+								Rotate
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Space:
+							</td>
+							<td>
+								Drop
+							</td>
+						</tr>
+					</table>
+
+			</div>
+		</div>
+	</body>
+</html>

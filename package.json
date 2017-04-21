@@ -1,0 +1,22 @@
+{
+  "name": "tetris.js",
+  "version": "0.1.0",
+  "description": "Tetris in your browser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://richard@git.klose.cloud/richard/tetris.js.git"
+  },
+  "keywords": [
+    "tetris"
+  ],
+  "author": "Richard Klose <richard.klose@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
