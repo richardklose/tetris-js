@@ -1,9 +1,9 @@
 {
   "name": "tetris-js",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Tetris in your browser",
   "main": "index.js",
-  "bin":"bin/tetris.js",
+  "bin": "bin/tetris.js",
   "scripts": {
     "start": "node ."
   },
@@ -18,6 +18,7 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^2.9.0",
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "jquery": "1.11.0"
   }
 }
