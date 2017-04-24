@@ -6,7 +6,7 @@ app.get('/', (request, response) => {
     response.sendFile(path.join(__dirname + '/assets/index.html'))
 })
 
-app.use(express.static('assets'))
+app.use('/', express.static(path.join(__dirname, '/assets')))
 app.use('/jquery', express.static(path.join(__dirname, '/node_modules/jquery/dist')))
 
 function start(port) {
