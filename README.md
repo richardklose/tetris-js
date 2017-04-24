@@ -1,6 +1,8 @@
 # tetris-js
 Javascript Tetris in your Browser
 
+This is a small project I've build during my time at HAW Hamburg.
+
 ### Installation
 <code>
 npm install -g tetris-js
