@@ -5,7 +5,7 @@
   "main": "index.js",
   "bin": "bin/tetris.js",
   "scripts": {
-    "start": "node ."
+    "start": "node bin/tetris.js"
   },
   "repository": {
     "type": "git",
