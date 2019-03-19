@@ -1,59 +1,56 @@
-/**
- * game.js
- * JAVASCRIPT TETRIS
- *
- * January 2014 - Richard Klose / Maximilian Frercksen
- */
+const Log = {
+
+	logLevel: -1, // -1 = off,0 = minimal,1 = medium,2 = more,3 = everything
+
+	log0: (string) => {
+		if (Log.logLevel!==-1) {
+			console.log("[GAME] " + string)
+		}
+	},
+	log1: (string) => {
+		if (Log.logLevel===1 || Log.logLevel===2 || Log.logLevel===3) {
+			console.log("[GAME] "+string)
+		}
+	},
+	log2: (string) => {
+		if (Log.logLevel===2 || Log.logLevel===3) {
+			console.log("[GAME] "+string)
+		}
+	},
+	log3: (string) => {
+		if (Log.logLevel===3) {
+			console.log("[GAME] "+string)
+		}
+	}
+}
+
+
 $(document).ready(function(){
-	var points = 0;
-	var gameover = false;
-	var currX = 0;
-	var currY = 0;
-	var canvas = document.getElementById('gamecanvas');
-	var canvas2 = document.getElementById('nextcanvas');
-	var ctx = canvas.getContext("2d");
-	var ctx2 = canvas2.getContext("2d");
-	var delay = 1000;
-	var finish = false;
-	var drop = false;
-	var placedBoxes = new Array(24);
-	for (var i = 0; i < placedBoxes.length; i++) {
+	let points = 0;
+	let gameover = false;
+	let currX = 0;
+	let currY = 0;
+	let canvas = document.getElementById('gamecanvas');
+	let canvas2 = document.getElementById('nextcanvas');
+	let ctx = canvas.getContext("2d");
+	let ctx2 = canvas2.getContext("2d");
+	let delay = 1000;
+	let finish = false;
+	let drop = false;
+	let placedBoxes = new Array(24);
+	for (let i = 0; i < placedBoxes.length; i++) {
 		placedBoxes[i] = new Array(16);
 	}
-	var nextObject;
-	var nextObj;
-	var boxesInLine = new Array(24);
-	
-	var logLevel = -1; // -1 = off,0 = minimal,1 = medium,2 = more,3 = everything
-	
-	function log0(string){
-		if(logLevel!=-1);
-		console.log("[GAME] "+string);
-	}
-
-	function log1(string){
-		if(logLevel==1||logLevel==2||logLevel==3){
-			console.log("[GAME] "+string);
-		}
-	}
-
-	function log2(string){
-		if(logLevel==2||logLevel==3){
-			console.log("[GAME] "+string);
-		}
-	}
-	function log3(string){
-		if(logLevel==3){
-			console.log("[GAME] "+string);
-		}
-	}
+	let nextObject;
+	let nextObj;
+	let boxesInLine = new Array(24);
 
 	function getRandomInt (min, max) {
 	    return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
 
-	
+
 	// MODELS - GAME OBJECTS
 
 	//simplebox object, to create the tiles from
@@ -69,7 +66,7 @@ $(document).ready(function(){
 				ctx.closePath();
 				ctx.strokeStyle = "black";
 				ctx.stroke();
-				
+
 			}
 			this.printPreview = printPreview;
 			function printPreview(x,y){
@@ -92,9 +89,9 @@ $(document).ready(function(){
 				this.yPos = yPos;
 			}
 	};
-	
+
 	//basic tile, only a protoype for the the tiles
-	var gameObject = function(){
+	let gameObject = function(){
 		this.part1 = new simplebox();
 		this.part2 = new simplebox();
 		this.part3 = new simplebox();
@@ -133,11 +130,11 @@ $(document).ready(function(){
 				//move back to old position
 				this.move(helpX,helpY);
 				//check if a box is outside
-				
+
 				//clear screen and reprint
 				ctx.clearRect(0,0, canvas.width, canvas.height);
-				for(var i=0;i<24;i++){
-					for(var j=0;j<16;j++){
+				for(let i=0;i<24;i++){
+					for(let j=0;j<16;j++){
 						if(placedBoxes[i]!=undefined){
 							if(placedBoxes[i][j]!=undefined){
 								placedBoxes[i][j].print("#777");
@@ -147,14 +144,14 @@ $(document).ready(function(){
 				}
 				checkIfOutside();
 				this.print("#AAA");
-				log1("rotated");
-		
+				Log.log1("rotated");
+
 			},
 	};
-	
+
 
 	// O
-	var tileO = function(){};
+	let tileO = function(){};
 	tileO.prototype = new gameObject();
 	tileO.prototype.init = function(xPos){
 		this.xPos+=xPos;
@@ -172,9 +169,9 @@ $(document).ready(function(){
 		this.part3.printPreview(3,3);
 		this.part4.printPreview(3,2);
 	}
-	
+
 	// I
-	var tileI = function(){};
+	let tileI = function(){};
 	tileI.prototype = new gameObject();
 	tileI.prototype.init = function(xPos){
 		this.xPos+=xPos;
@@ -194,7 +191,7 @@ $(document).ready(function(){
 	}
 
 	// Z
-	var tileZ = function(){};
+	let tileZ = function(){};
 	tileZ.prototype = new gameObject();
 	tileZ.prototype.init = function(xPos){
 		this.xPos+=xPos;
@@ -214,7 +211,7 @@ $(document).ready(function(){
 	}
 
 	// S
-	var tileS = function(){};
+	let tileS = function(){};
 	tileS.prototype = new gameObject();
 	tileS.prototype.init = function(xPos){
 		this.xPos+=xPos;
@@ -232,9 +229,9 @@ $(document).ready(function(){
 		this.part3.printPreview(2,2);
 		this.part4.printPreview(3,2);
 	}
-	
-	// T		
-	var tileT = function(){};
+
+	// T
+	let tileT = function(){};
 	tileT.prototype = new gameObject();
 	tileT.prototype.init = function(xPos){
 		this.xPos+=xPos;
@@ -254,7 +251,7 @@ $(document).ready(function(){
 	}
 
 	// J
-	var tileJ = function(){};
+	let tileJ = function(){};
 	tileJ.prototype = new gameObject();
 	tileJ.prototype.init = function(xPos){
 		this.xPos+=xPos;
@@ -274,7 +271,7 @@ $(document).ready(function(){
 	}
 
 	// L
-	var tileL = function(){};
+	let tileL = function(){};
 	tileL.prototype = new gameObject();
 	tileL.prototype.init = function(xPos){
 		this.xPos+=xPos;
@@ -294,7 +291,7 @@ $(document).ready(function(){
 	}
 
 // CONTROLLER - GAME LOGIC
-	
+
 	function finishObject(obj){
 		//we need to check if a part of the object is outside the canvas -> game over
 		if(obj.part1.yPos<0||obj.part2.yPos<0||obj.part3.yPos<0||obj.part1.yPos<0){
@@ -308,32 +305,32 @@ $(document).ready(function(){
 				placedBoxes[obj.part2.yPos][obj.part2.xPos] = $.extend({},obj.part2);
 				placedBoxes[obj.part3.yPos][obj.part3.xPos] = $.extend({},obj.part3);
 				placedBoxes[obj.part4.yPos][obj.part4.xPos] = $.extend({},obj.part4);
-				log0("finished this object");
+				Log.log0("finished this object");
 			}
 			//everytime when a object is finished, we need to check if a line is completed and if so, remove it
 			linesToClear = new Array();
-			for(var i=0;i<24;i++){
+			for(let i=0;i<24;i++){
 				boxesInThisLine=0;
-				for(var j=0;j<16;j++){
+				for(let j=0;j<16;j++){
 					if(placedBoxes[i]!=undefined){
 						if(placedBoxes[i][j]!=undefined){
-							log3("found box in line "+i);
+							Log.log3("found box in line "+i);
 							boxesInThisLine++;
 						}
 						if(boxesInThisLine>=16){
 							//line is complete -> save this information
-							log0("line "+i+" complete");
+							Log.log0("line "+i+" complete");
 							linesToClear.push(i);
 						}
 					}
 				}
 			}
 			//pull lines down
-			for (var i = 0; i < linesToClear.length; i++) {
-				for(var j = linesToClear[i]; j>0; j--){
+			for (let i = 0; i < linesToClear.length; i++) {
+				for(let j = linesToClear[i]; j>0; j--){
 					placedBoxes[j]=placedBoxes[j-1];
 					// correct yPositions
-					for(var k = 0; k < 16 ; k++){
+					for(let k = 0; k < 16 ; k++){
 						if(placedBoxes[j][k]!=undefined){
 							placedBoxes[j][k].yPos+=1;
 						}
@@ -344,17 +341,17 @@ $(document).ready(function(){
 				// speed up
 				delay = delay*0.9;
 			};
-			
+
 			//update view
 			$("#points").html(points);
 		}
 	}
 
 	function gameOver(){
-		log0("GAME OVER");
+		Log.log0("GAME OVER");
 		gameover = true;
 		ctx.clearRect(0,0, canvas.width, canvas.height);
-		var boxes = new Array();
+		let boxes = new Array();
 		// paint GAME OVER
 		ctx.fillStyle = "#AAA";
 		ctx.font = "200 58px Helvetica";
@@ -401,7 +398,7 @@ $(document).ready(function(){
 		}
 		nextObj.printPreview();
 	}
-	
+
 	function createNewObject(){
 
 		switch(nextObject){
@@ -439,13 +436,13 @@ $(document).ready(function(){
 				break;
 		}
 		currObj.init(currX); // <-- MAYBE WE CAN DO THIS IN A CONSTRUCTOR??
-		log0("created a new object from preview");
+		Log.log0("created a new object from preview");
 		nextObject = getRandomInt(8,0);
 		printNextObject();
 	}
-	
+
 	function moveObject(obj,direction){
-		log2("let's move "+ direction);
+		Log.log2("let's move "+ direction);
 		//clear screen
 		ctx.clearRect(0,0, canvas.width, canvas.height);
 		//check if object reached bottom
@@ -454,7 +451,7 @@ $(document).ready(function(){
 				   currObj.part3.yPos>=23||
 				   currObj.part4.yPos>=23)
 			&&direction=="down"){
-		   	log1("can't move "+direction+", because there is the bottom.");
+		   	Log.log1("can't move "+direction+", because there is the bottom.");
 		    drop =false;
 			finishObject(currObj);
 			createNewObject();
@@ -475,8 +472,8 @@ $(document).ready(function(){
 			}
 			//check if object touched already placed boxes
 			touch = false;
-			for(var i=0;i<24;i++){	
-				for(var j=0;j<16;j++){
+			for(let i=0;i<24;i++){
+				for(let j=0;j<16;j++){
 					if (placedBoxes[i][j]!=undefined){
 
 						if(currObj.part1.xPos==j&&currObj.part1.yPos==i-1||
@@ -484,8 +481,8 @@ $(document).ready(function(){
 						   currObj.part3.xPos==j&&currObj.part3.yPos==i-1||
 						   currObj.part4.xPos==j&&currObj.part4.yPos==i-1){
 						   	if(direction=="down"){
-								touch = true;	
-								log1("can't move "+direction+", because there is already a box.");
+								touch = true;
+								Log.log1("can't move "+direction+", because there is already a box.");
 							}
 						}
 						else{
@@ -494,8 +491,8 @@ $(document).ready(function(){
 								   (currObj.part2.xPos==(j-1)&&currObj.part2.yPos==i)||
 								   (currObj.part3.xPos==(j-1)&&currObj.part3.yPos==i)||
 								   (currObj.part4.xPos==(j-1)&&currObj.part4.yPos==i)){
-										touch = true;	
-										log1("can't move "+direction+", because there is already a box.");
+										touch = true;
+										Log.log1("can't move "+direction+", because there is already a box.");
 								}
 							}
 							else if(direction=="left"){
@@ -503,8 +500,8 @@ $(document).ready(function(){
 								   (currObj.part2.xPos==j+1&&currObj.part2.yPos==i)||
 								   (currObj.part3.xPos==j+1&&currObj.part3.yPos==i)||
 								   (currObj.part4.xPos==j+1&&currObj.part4.yPos==i)){
-										touch = true;	
-										log1("can't move "+direction+", because there is already a box.");
+										touch = true;
+										Log.log1("can't move "+direction+", because there is already a box.");
 								}
 							}
 						}
@@ -531,28 +528,28 @@ $(document).ready(function(){
 			}
 		}
 		if(!gameover){
-			for(var i=0;i<24;i++){
-				for(var j=0;j<16;j++){
+			for(let i=0;i<24;i++){
+				for(let j=0;j<16;j++){
 					if(placedBoxes[i]!=undefined){
 						if(placedBoxes[i][j]!=undefined){
 							placedBoxes[i][j].print("#777");
-							log3("printed placed box at "+i+","+j);
+							Log.log3("printed placed box at "+i+","+j);
 						}
 					}
-				}		
+				}
 			}
 		}
 		if(drop){
 			setTimeout(function(){
-				moveObject(currObj,"down");	
+				moveObject(currObj,"down");
 			},delay/50);
 		}
 	}
-	
-	// GAME LOOP	
+
+	// GAME LOOP
 
 	function play(){
-	
+
 		setTimeout(function(){
 			moveObject(currObj,"down");
 			if(!gameover){
@@ -560,13 +557,13 @@ $(document).ready(function(){
 			}
 		},delay);
 	}
-	
+
 	//CREATE A TILE AND START THE GAME
-	log0("WELCOME TO TETRIS.JS - SIMPLE JAVASCRIPT TETRIS");
+	Log.log0("WELCOME TO TETRIS.JS - SIMPLE JAVASCRIPT TETRIS");
 	nextObject = getRandomInt(8,0);
 	printNextObject();
 	createNewObject();
-	log0("Let's begin!");
+	Log.log0("Let's begin!");
 	play();
 	// KEY EVENTS
 	$(document).keydown(function(event){
